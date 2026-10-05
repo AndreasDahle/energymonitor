@@ -1,0 +1,27 @@
+# IntelliJ IDEA
+.idea/
+**/.idea/
+*.iml
+
+# Maven / Spring Boot
+**/target/
+*.log
+
+# Node / frontend
+**/node_modules/
+**/dist/
+**/.vite/
+
+# Environment files / secrets
+.env
+.env.*
+**/.env
+**/.env.*
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Temporary files
+*.tmp
+*.swp
