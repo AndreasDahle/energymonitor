@@ -1,5 +1,6 @@
 package com.energi.backend;
 
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -26,13 +27,13 @@ public class ComponentController {
     }
 
     @PostMapping
-    public ResponseEntity<Component> createComponent(@RequestBody Component component){
+    public ResponseEntity<Component> createComponent(@Valid @RequestBody Component component){
         Component created = componentService.newComponent(component);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(created);
     }
     @PutMapping("/{id}")
-    public  Component updateComponent(@PathVariable Long id, @RequestBody Component component){
+    public  Component updateComponent(@PathVariable Long id, @Valid @RequestBody Component component){
         return componentService.updateComponent(id, component);
     }
     @DeleteMapping("/{id}")

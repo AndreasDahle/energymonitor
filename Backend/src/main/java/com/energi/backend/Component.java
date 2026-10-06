@@ -2,10 +2,9 @@ package com.energi.backend;
 
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
-import java.time.LocalDateTime;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.PreUpdate;
-import org.springframework.cglib.core.Local;
+import jakarta.validation.constraints.NotBlank;
 
 @Entity
 public class Component {
@@ -13,9 +12,11 @@ public class Component {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @NotBlank
     private String name;
     @Enumerated(EnumType.STRING)
     private Status status;
+    @NotBlank
     private String type;
     private LocalDateTime lastUpdated;
 
