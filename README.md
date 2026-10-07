@@ -36,3 +36,8 @@ Start \Backend ved å navigere til backendmappen
 og kjør:
 
 `.\mvnw spring-boot:run`
+
+For å starte frontend så naviger til \frontend mappen og kjør dette
+`npm install`
+
+`npm run dev`
