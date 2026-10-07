@@ -23,21 +23,45 @@ const emit = defineEmits<{
 }>()
 
 
+const errors = ref({
+  name: "",
+  type: ""
+})
+
+function validateForm(): boolean{
+  errors.value.name = ""
+  errors.value.type = ""
+
+  if (name.value.trim() === "") {
+    errors.value.name = "Name is required"
+  }
+
+  if (type.value.trim() === "") {
+    errors.value.type = "Type is required"
+  }
+  return errors.value.name === "" && errors.value.type === ""
+}
+
+
 async function handleSave() {
-  const input = {
-    name: name.value,
-    status: status.value,
-    type: type.value
-  }
-
-  if(isEditing.value){
-    const updated = await updateComponent(input, props.component!.id)
-    emit("updated", updated)
+  if(!validateForm()){
+    return
   } else{
-    const created = await createComponent(input)
-    emit("created", created)
-  }
+    const input = {
+      name: name.value,
+      status: status.value,
+      type: type.value
+    }
 
+    if(isEditing.value){
+      const updated = await updateComponent(input, props.component!.id)
+      emit("updated", updated)
+    } else{
+      const created = await createComponent(input)
+      emit("created", created)
+    }
+
+}
 }
 
 
@@ -49,7 +73,9 @@ async function handleSave() {
 
     <p>Name:</p>
     <input v-model="name" placeholder="Write name here" />
-
+    <p v-if="errors.name">
+      {{errors.name}}
+    </p>
     <select v-model="status">
       <option disabled value="">Please select one</option>
       <option :value="Status.ACTIVE">Active</option>
@@ -60,7 +86,9 @@ async function handleSave() {
     <p>Type:</p>
     <input v-model="type" placeholder="Write type here" />
 
-
+    <p v-if="errors.type">
+      {{errors.type}}
+    </p>
     <div>
       <button @click="handleSave()">
         {{ isEditing ? "Save changes" : "Create"}}

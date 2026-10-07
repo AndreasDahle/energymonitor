@@ -67,10 +67,10 @@ watch(
 
   <div>
     <button @click="handleDelete()">
-      Slett
+      Delete
     </button>
     <button @click="handleEdit" >
-      Rediger
+      Edit
     </button>
   </div>
 
