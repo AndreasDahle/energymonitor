@@ -77,6 +77,7 @@ async function handleSave() {
     <p class="errortext" v-if="errors.name">
       {{errors.name}}
     </p>
+    <p class="input-title">Status:</p>
     <select v-model="status">
       <option disabled value="">Please select one</option>
       <option :value="Status.ACTIVE">Active</option>
