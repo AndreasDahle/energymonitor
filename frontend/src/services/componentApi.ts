@@ -22,7 +22,7 @@ export async function getComponent(id:number): Promise<Component>{
     return response.json()
 }
 
-export async function createComponent(component: Omit<Component, "id">):Promise <Component>{
+export async function createComponent(component: Omit<Component, "id" | "lastUpdated">):Promise <Component>{
     const response = await fetch(API_URL, {
         method: "POST",
         headers :{

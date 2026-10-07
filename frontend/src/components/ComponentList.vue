@@ -1,16 +1,27 @@
 <script setup lang="ts">
 
-import {onMounted, ref} from 'vue'
+import {computed, onMounted, ref} from 'vue'
 import ComponentDetails from "./ComponentDetails.vue"
 import type { Component } from "../types/Component"
 import { getAllComponents } from "../services/componentApi"
+import ComponentForm from "./ComponentForm.vue"
 
+
+
+const showCreateForm = ref(false)
+const componentToEdit = ref<Component | undefined>(undefined)
 const components = ref<Component[]>([])
 async function loadComponents() {
   components.value = await getAllComponents()
 }
 
 const selectedComponentId = ref<number | null>(null)
+
+const selectedComponent = computed(() =>
+    components.value.find(
+        component => component.id === selectedComponentId.value
+    )
+)
 
 function selectComponent(id: number) {
   selectedComponentId.value = id
@@ -24,6 +35,28 @@ function handleComponentDeleted(id: number) {
   selectedComponentId.value = null
 }
 
+function handleComponentCreated(component: Component) {
+  components.value.push(component)
+  showCreateForm.value = false
+}
+
+function handleEdit(component: Component) {
+  componentToEdit.value = component
+}
+
+function handleComponentUpdated(updated: Component) {
+  const index = components.value.findIndex(
+      component => component.id === updated.id
+  )
+
+  if (index !== -1) {
+    components.value[index] = updated
+  }
+
+  componentToEdit.value = undefined
+}
+
+
 onMounted(() => {
 loadComponents()
 })
@@ -36,6 +69,7 @@ loadComponents()
   <h1>
     Components
   </h1>
+
 
   <table>
     <thead>
@@ -60,10 +94,25 @@ loadComponents()
     </tr>
     </tbody>
   </table>
+
+  <button @click="showCreateForm=true">
+    Create component
+  </button>
+
+  <ComponentForm
+      v-if="showCreateForm"
+      @created="handleComponentCreated"
+  />
+  <ComponentForm
+      v-if="componentToEdit"
+      :component="componentToEdit"
+      @updated="handleComponentUpdated"
+  />
   <ComponentDetails
-      v-if="selectedComponentId !== null"
-      :id="selectedComponentId"
+      v-if="selectedComponent"
+      :component="selectedComponent"
       @deleted="handleComponentDeleted"
+      @edit="handleEdit"
   />
 </main>
 </template>

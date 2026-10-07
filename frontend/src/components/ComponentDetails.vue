@@ -4,28 +4,39 @@ import {deleteComponent, getComponent, updateComponent} from "../services/compon
 import {onMounted, ref, watch} from "vue";
 
 const props = defineProps<{
-  id: number
+  component: Component
 }>()
 
 const component = ref<Component | null>(null)
 
-async function loadComponent() {
-  component.value = await getComponent(props.id)
-}
-async function handleDelete() {
-  await deleteComponent(props.id)
-  emit("deleted", props.id)
 
-}
 const emit = defineEmits<{
   deleted: [id: number]
+  edit: [component: Component]
 }>()
+
+async function loadComponent() {
+  component.value = await getComponent(props.component.id)
+}
+async function handleDelete() {
+  await deleteComponent(props.component.id)
+  emit("deleted", props.component.id)
+
+}
+
+function handleEdit() {
+  if (component.value) {
+    emit("edit", component.value)
+  }
+}
+
+
 
 onMounted(() => {
   loadComponent()
 })
 watch(
-    () => props.id,
+    () => props.component.id,
     () => {
       loadComponent()
 }
@@ -37,20 +48,20 @@ watch(
 <template>
 <div v-if="component">
   <h1>
-    {{component.name}}
+    {{props.component.name}}
 
   </h1>
 
 
   <ul>
     <li>
-      Type: {{component.type}}
+      Type: {{props.component.type}}
     </li>
     <li>
-      Status: {{component.status}}
+      Status: {{props.component.status}}
     </li>
     <li>
-      Last updated: {{component.lastUpdated}}
+      Last updated: {{props.component.lastUpdated}}
     </li>
   </ul>
 
@@ -58,7 +69,7 @@ watch(
     <button @click="handleDelete()">
       Slett
     </button>
-    <button >
+    <button @click="handleEdit" >
       Rediger
     </button>
   </div>
