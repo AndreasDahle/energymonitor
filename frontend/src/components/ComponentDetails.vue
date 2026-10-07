@@ -30,6 +30,9 @@ function handleEdit() {
   }
 }
 
+function formatDate(dateString: string): string {
+  return new Date(dateString).toLocaleString()
+}
 
 
 onMounted(() => {
@@ -61,7 +64,7 @@ watch(
       Status: {{props.component.status}}
     </li>
     <li>
-      Last updated: {{props.component.lastUpdated}}
+      Last updated: {{formatDate(component.lastUpdated)}}
     </li>
   </ul>
 

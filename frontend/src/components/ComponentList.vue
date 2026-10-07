@@ -50,7 +50,6 @@ function handleComponentUpdated(updated: Component) {
   )
 
 
-
   if (index !== -1) {
     components.value[index] = updated
   }
@@ -106,11 +105,13 @@ loadComponents()
   <ComponentForm
       v-if="showCreateForm"
       @created="handleComponentCreated"
+      @cancelled="showCreateForm = false"
   />
   <ComponentForm
       v-if="componentToEdit"
       :component="componentToEdit"
       @updated="handleComponentUpdated"
+      @cancelled="componentToEdit = undefined"
   />
   <ComponentDetails
       v-if="selectedComponent"

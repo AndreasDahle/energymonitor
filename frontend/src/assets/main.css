@@ -11,11 +11,14 @@
 
 button{
   padding: 0.35rem 0.5rem;
-  margin: 0.8rem;
+  margin-top: 1.5rem;
+  margin-right: 1.5rem;
   background-color: lightblue;
   border:none;
   cursor:pointer;
   transition: background-color 0.15s ease, transform 0.15s ease;
+  border-radius: 5px;
+  font-size: 1rem;
 }
 button:hover{
   background-color: lightskyblue;
@@ -61,4 +64,32 @@ button:active{
 
 .component-table tbody tr:hover {
   background: #f8f8f8;
+}
+
+input,
+select {
+  width: 100%;
+  max-width: 320px;
+  padding: 0.65rem 0.75rem;
+  border: 1px solid #cfd6dc;
+  border-radius: 6px;
+  font-size: 1rem;
+  background: white;
+  box-sizing: border-box;
+  margin-top: 1rem;
+}
+
+input:focus,
+select:focus {
+  outline: none;
+  border-color: #6ba9c2;
+  box-shadow: 0 0 0 3px rgba(107, 169, 194, 0.18);
+}
+
+.input-title{
+  font-size: 1.25rem;
+  margin-top: 1rem;
+}
+.errortext{
+  color: red;
 }

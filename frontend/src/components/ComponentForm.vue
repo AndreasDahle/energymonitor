@@ -20,6 +20,7 @@ const type = ref(props.component?.type ?? "")
 const emit = defineEmits<{
   created: [component: Component]
   updated: [component: Component]
+  cancelled: []
 }>()
 
 
@@ -71,9 +72,9 @@ async function handleSave() {
   <div>
     <h1>{{ isEditing ? "Edit component" : "Create component" }}</h1>
 
-    <p>Name:</p>
+    <p class="input-title">Name:</p>
     <input v-model="name" placeholder="Write name here" />
-    <p v-if="errors.name">
+    <p class="errortext" v-if="errors.name">
       {{errors.name}}
     </p>
     <select v-model="status">
@@ -83,17 +84,21 @@ async function handleSave() {
       <option :value="Status.MAINTENANCE">Maintenance</option>
     </select>
 
-    <p>Type:</p>
+    <p class="input-title">Type:</p>
     <input v-model="type" placeholder="Write type here" />
 
-    <p v-if="errors.type">
+    <p class="errortext" v-if="errors.type">
       {{errors.type}}
     </p>
     <div>
       <button @click="handleSave()">
         {{ isEditing ? "Save changes" : "Create"}}
       </button>
+      <button type="button" @click="emit('cancelled')">
+      Cancel
+    </button>
     </div>
+
 
   </div>
 </template>
