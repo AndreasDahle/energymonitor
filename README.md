@@ -27,8 +27,8 @@
 - Exceptions: Error håndtering
 
 ### Frontend:
-Components: Base komponentene, som detalijvisning, listevisning
-Services: Endepunktshåndtering
+- Components: Base komponentene, som detalijvisning, listevisning
+- Services: Endepunktshåndtering
 
 ## Forutsetninger
 - Java 25
