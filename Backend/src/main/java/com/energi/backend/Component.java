@@ -25,15 +25,16 @@ public class Component {
         INACTIVE,
         MAINTENANCE
     }
+
     public Component(String name, Status status, String type){
         this.name=name;
         this.status=status;
         this.type=type;
     }
 
-
     public Component(){
-            }
+    }
+
     public Long getId(){
         return id;
     }
@@ -41,19 +42,24 @@ public class Component {
     public String getName() {
         return name;
     }
+
     public void  setName(String name){
         this.name=name;
     }
+
     public Status getStatus(){
         return status;
     }
+
     public void setStatus(Status status){
         this.status=status;
 
     }
+
     public String getType(){
         return type;
     }
+
     public void  setType(String type){
         this.type=type;
     }

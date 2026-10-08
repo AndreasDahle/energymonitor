@@ -3,20 +3,19 @@ import {type Component, Status} from "../types/Component"
 import {createComponent, updateComponent } from "../services/componentApi"
 import {computed, ref} from "vue";
 
+//Henter Component fra parent lista
 const props = defineProps<{
   component?: Component
 }>()
 
 
 const isEditing = computed(() => props.component !== undefined)
+//Dynamiske verdier
 const name = ref(props.component?.name ?? "")
 const status = ref(props.component?.status ?? Status.ACTIVE)
 const type = ref(props.component?.type ?? "")
 
-
-
-
-
+//sierifra om endringer
 const emit = defineEmits<{
   created: [component: Component]
   updated: [component: Component]
@@ -36,18 +35,16 @@ function validateForm(): boolean{
   if (name.value.trim() === "") {
     errors.value.name = "Name is required"
   }
-
   if (type.value.trim() === "") {
     errors.value.type = "Type is required"
   }
   return errors.value.name === "" && errors.value.type === ""
 }
 
-
 async function handleSave() {
   if(!validateForm()){
     return
-  } else{
+  } else {
     const input = {
       name: name.value,
       status: status.value,
@@ -57,11 +54,10 @@ async function handleSave() {
     if(isEditing.value){
       const updated = await updateComponent(input, props.component!.id)
       emit("updated", updated)
-    } else{
+    } else {
       const created = await createComponent(input)
       emit("created", created)
     }
-
 }
 }
 

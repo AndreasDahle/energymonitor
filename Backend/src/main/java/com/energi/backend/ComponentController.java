@@ -16,6 +16,7 @@ public class ComponentController {
     public ComponentController (ComponentService componentService){
         this.componentService=componentService;
     }
+
     @GetMapping
     public List<Component> getallComponents(){
         return componentService.getAllComponents();
@@ -32,10 +33,12 @@ public class ComponentController {
 
         return ResponseEntity.status(HttpStatus.CREATED).body(created);
     }
+
     @PutMapping("/{id}")
     public  Component updateComponent(@PathVariable Long id, @Valid @RequestBody Component component){
         return componentService.updateComponent(id, component);
     }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteComponent(@PathVariable Long id){
             componentService.deleteComponent(id);

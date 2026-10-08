@@ -17,6 +17,7 @@ async function loadComponents() {
 
 const selectedComponentId = ref<number | null>(null)
 
+//Recomputes component when necessary for detail view
 const selectedComponent = computed(() =>
     components.value.find(
         component => component.id === selectedComponentId.value
@@ -31,7 +32,6 @@ function handleComponentDeleted(id: number) {
   components.value = components.value.filter(
       component => component.id !== id
   )
-
   selectedComponentId.value = null
 }
 
@@ -48,12 +48,9 @@ function handleComponentUpdated(updated: Component) {
   const index = components.value.findIndex(
       component => component.id === updated.id
   )
-
-
   if (index !== -1) {
     components.value[index] = updated
   }
-
   componentToEdit.value = undefined
 }
 function formatDate(dateString: string): string {

@@ -14,19 +14,24 @@ public class ComponentService {
     public ComponentService(ComponentRepository componentRepository) {
         this.componentRepository = componentRepository;
     }
+
     public Component newComponent(Component component){
            return componentRepository.save(component);
     }
+
     public List<Component> getAllComponents(){
         return(componentRepository.findAll());
     }
+
     public Component getComponentByID(Long id){
         return componentRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Component not found"));
     }
+
     public void deleteComponent(Long id){
         componentRepository.deleteById(id);
     }
+
     public Component updateComponent(Long id, Component component){
         Component exists = componentRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Component not found"));

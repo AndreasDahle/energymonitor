@@ -75,11 +75,13 @@ class ComponentControllerTests {
                         """))
                 .andExpect(status().isBadRequest());
     }
+
     @Test
     void shouldDeleteComponent() throws Exception {
         mockMvc.perform(delete("/api/components/1")).andExpect(status().isNoContent());
         verify(componentService).deleteComponent(1L);
     }
+
     @Test
     void shouldUpdateComponent() throws Exception {
         Component updatedComponent = new Component("Updated Battery", Component.Status.MAINTENANCE, "Battery");

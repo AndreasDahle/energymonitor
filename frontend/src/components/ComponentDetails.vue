@@ -3,13 +3,14 @@ import type { Component } from "../types/Component"
 import {deleteComponent, getComponent, updateComponent} from "../services/componentApi"
 import {onMounted, ref, watch} from "vue";
 
+//henter component fra parent lista
 const props = defineProps<{
   component: Component
 }>()
 
 const component = ref<Component | null>(null)
 
-
+//sierifra til lista om endringer
 const emit = defineEmits<{
   deleted: [id: number]
   edit: [component: Component]
@@ -18,6 +19,8 @@ const emit = defineEmits<{
 async function loadComponent() {
   component.value = await getComponent(props.component.id)
 }
+
+
 async function handleDelete() {
   await deleteComponent(props.component.id)
   emit("deleted", props.component.id)
@@ -38,6 +41,7 @@ function formatDate(dateString: string): string {
 onMounted(() => {
   loadComponent()
 })
+
 watch(
     () => props.component.id,
     () => {
