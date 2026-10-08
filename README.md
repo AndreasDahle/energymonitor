@@ -5,6 +5,8 @@
 - Validering
 - Error håndtering
 - Tester
+- Frontend
+- Klient-side validering
 
 ## Tekonologivalg
 - Java 25
@@ -13,6 +15,8 @@
 - MySQL
 - Docker
 - Maven
+- Vue
+- Typescript
 
 ## Prosjektstruktur
 ### Backend
@@ -22,10 +26,15 @@
 - Model (Component): Komponentdata
 - Exceptions: Error håndtering
 
+### Frontend:
+Components: Base komponentene, som detalijvisning, listevisning
+Services: Endepunktshåndtering
+
 ## Forutsetninger
 - Java 25
 - Maven
 - Docker
+- Node.js
 
 ## Hvordan kjøre programmet
 Start databasen fra repo root mappen med:
